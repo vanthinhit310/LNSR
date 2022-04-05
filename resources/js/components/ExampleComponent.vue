@@ -7,14 +7,14 @@
                         Socket io with nodejs and vuejs
                     </div>
                     <div class="card-body">
-                        <div class="row mb-2">
+                        <div class="row mb-3">
                             <div class="col-smd-12">
                                 <div class="card">
                                     <div class="card-header">
                                         Socket fire event to all client
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-group mb-2">
+                                        <div class="form-group mb-3">
                                             <input
                                                 type="text"
                                                 v-model="input1"
@@ -26,14 +26,14 @@
                                             type="button"
                                             class="btn btn-sm btn-success"
                                         >
-                                            Send
+                                            <i class="fas fa-paper-plane"></i> Send
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row mb-2">
+                        <div class="row mb-3">
                             <div class="col-smd-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -41,7 +41,7 @@
                                         current user
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-group mb-2">
+                                        <div class="form-group mb-3">
                                             <input
                                                 type="text"
                                                 v-model="input2"
@@ -53,7 +53,7 @@
                                             type="button"
                                             class="btn btn-sm btn-success"
                                         >
-                                            Send
+                                            <i class="fas fa-paper-plane"></i> Send
                                         </button>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                         Socket fire event to private (current) client
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-group mb-2">
+                                        <div class="form-group mb-3">
                                             <input
                                                 type="text"
                                                 v-model="input3"
@@ -79,7 +79,7 @@
                                             type="button"
                                             class="btn btn-sm btn-success"
                                         >
-                                            Send
+                                            <i class="fas fa-paper-plane"></i> Send
                                         </button>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                         Socket working with Laravel Broadcast Event
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-group mb-2">
+                                        <div class="form-group mb-3">
                                             <input
                                                 type="text"
                                                 v-model="title"
@@ -101,7 +101,7 @@
                                                 class="form-control w-100"
                                             />
                                         </div>
-                                        <div class="form-group mb-2">
+                                        <div class="form-group mb-3">
                                             <input
                                                 type="text"
                                                 v-model="body"
@@ -114,7 +114,7 @@
                                             type="button"
                                             class="btn btn-sm btn-success"
                                         >
-                                            Send
+                                            <i class="fas fa-paper-plane"></i> Send
                                         </button>
                                     </div>
                                 </div>

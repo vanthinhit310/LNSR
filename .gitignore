@@ -20,3 +20,5 @@ composer.lock
 .vscode
 package-lock.json
 public/js/app.js
+public/css/app.css
+public/mix-manifest.json
