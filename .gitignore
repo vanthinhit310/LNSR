@@ -13,3 +13,8 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+_ide_helper.php
+.phpstorm.meta.php
+composer.lock
+.idea
+.vscode
