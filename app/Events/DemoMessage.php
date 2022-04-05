@@ -32,7 +32,7 @@ class DemoMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ["PUBLIC_BROADCAST"];
+        return new Channel("PUBLIC_BROADCAST");
     }
 
     public function broadcastAs(){
@@ -40,7 +40,7 @@ class DemoMessage implements ShouldBroadcast
     }
 
     public function broadcastWith(){
-        return $this->param;
+        return array_merge($this->param, ["room" => "Room:1"]);
     }
 
 }

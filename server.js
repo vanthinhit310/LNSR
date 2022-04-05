@@ -7,8 +7,31 @@ const io = require("socket.io")(server, {
     cors: { origin: "*" },
 });
 
+/* const redisClient = redis.createClient({
+    host: "127.0.0.1",
+    port: 6379,
+    password: "",
+});
+
+(async () => {
+    await redisClient.connect();
+})(); */
+
 const onConnection = async (socket) => {
     console.log("Socket IO connection");
+
+    const redisClient = redis.createClient();
+    await redisClient.connect()
+
+    redisClient.subscribe("PUBLIC_BROADCAST", (data, channel) => {
+        const response = JSON.parse(data);
+        socket.to(response.data.room).emit(response.event, response.data)
+    });
+
+    socket.on("joinRoom", (room) => {
+        // Joining a room
+        socket.join(room);
+    });
 
     //lắng nghe event fireToServer
     socket.on("fireToServer", (message) => {
@@ -28,23 +51,10 @@ const onConnection = async (socket) => {
         io.to(socketId).emit("fireEventToClient", message);
     });
 
-
-    const redisClient = await redis.createClient();
-    await redisClient.connect();
-    redisClient.subscribe("PUBLIC_BROADCAST", (data) => {
-        console.log(data);
-    })
-
     socket.on("disconnect", (reason) => {
         console.log(`disconnect ${socket.id} due to ${reason}`);
+        redisClient.quit();
     });
-
-    io.engine.on("connection_error", (err) => {
-        console.log("Socket IO Connection Error"); // the request object
-        console.log(err.code); // the error code, for example 1
-        console.log(err.message); // the error message, for example "Session ID unknown"
-    });
-
 };
 
 io.on("connection", onConnection);

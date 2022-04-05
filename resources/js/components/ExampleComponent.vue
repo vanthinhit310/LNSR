@@ -150,10 +150,19 @@ export default {
         };
     },
     created() {
+        // Joining a room when component created
+        socket.emit('joinRoom', 'Room:1');
+
         socket.on("fireEventToClient", (data) => {
-            console.log("-----fireEventToClient ");
+            console.log("-----fireEventToClient");
             console.log(data);
-            console.log("-----fireEventToClient ");
+            console.log("-----fireEventToClient");
+        });
+
+        socket.on("demo.message", (data) => {
+            console.log("-----demo.message");
+            console.log(data);
+            console.log("-----demo.message");
         });
     },
     methods: {
