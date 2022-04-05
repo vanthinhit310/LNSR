@@ -1,12 +1,13 @@
 const express = require("express");
 const app = express();
 const server = require("http").createServer(app);
+const redis = require("redis");
 
 const io = require("socket.io")(server, {
     cors: { origin: "*" },
 });
 
-const onConnection = (socket) => {
+const onConnection = async (socket) => {
     console.log("Socket IO connection");
 
     //lắng nghe event fireToServer
@@ -27,16 +28,18 @@ const onConnection = (socket) => {
         socket.emit("fireEventToClient", message);
     });
 
+
+    const redisClient = await redis.createClient();
+    console.log(redisClient);
+
     socket.on("disconnect", (reason) => {
         console.log(`disconnect ${socket.id} due to ${reason}`);
     });
 
     io.engine.on("connection_error", (err) => {
         console.log("Socket IO Connection Error"); // the request object
-        console.log(err.req); // the request object
         console.log(err.code); // the error code, for example 1
         console.log(err.message); // the error message, for example "Session ID unknown"
-        console.log(err.context); // some additional error context
     });
 
 };
