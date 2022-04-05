@@ -25,6 +25,7 @@ const onConnection = async (socket) => {
 
     redisClient.subscribe("PUBLIC_BROADCAST", (data, channel) => {
         const response = JSON.parse(data);
+        socket.join(response.data.room);
         socket.to(response.data.room).emit(response.event, response.data)
     });
 
