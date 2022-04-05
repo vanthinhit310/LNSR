@@ -15,6 +15,12 @@ const onConnection = (socket) => {
         io.sockets.emit("fireToAllClient", message);
     });
 
+    //lắng nghe event broadcastToServer
+    socket.on("broadcastToServer", (message) => {
+        // gửi cho tất cả client ngoại trừ client hiện tại
+        socket.broadcast.emit("fireToAllClient", message);
+    });
+
     socket.on("disconnect", (reason) => {
         console.log(`disconnect ${socket.id} due to ${reason}`);
     });

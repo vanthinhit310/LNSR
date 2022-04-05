@@ -7,11 +7,11 @@
                         Socket io with nodejs and vuejs
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row mb-2">
                             <div class="col-smd-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        Socket with all client
+                                        Socket fire event to all client
                                     </div>
                                     <div class="card-body">
                                         <div class="form-group mb-2">
@@ -23,6 +23,33 @@
                                         </div>
                                         <button
                                             @click="onSendEventToAllClient"
+                                            type="button"
+                                            class="btn btn-sm btn-success"
+                                        >
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-smd-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Socket fire event to all client without
+                                        current user
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group mb-2">
+                                            <input
+                                                type="text"
+                                                v-model="input2"
+                                                class="form-control w-100"
+                                            />
+                                        </div>
+                                        <button
+                                            @click="onSendEventToAllClientWithoutCurrent"
                                             type="button"
                                             class="btn btn-sm btn-success"
                                         >
@@ -55,6 +82,8 @@ export default {
     data() {
         return {
             input1: "",
+            input2: "",
+            input3: "",
         };
     },
     created() {
@@ -64,13 +93,15 @@ export default {
             console.log("-----fireToAllClient ");
         });
     },
-    mounted() {
-        console.log("Component mounted.");
-    },
     methods: {
         onSendEventToAllClient() {
             if (this.input1) {
                 socket.emit("fireToServer", this.input1);
+            }
+        },
+        onSendEventToAllClientWithoutCurrent() {
+            if (this.input2) {
+                socket.emit("broadcastToServer", this.input2);
             }
         },
     },
