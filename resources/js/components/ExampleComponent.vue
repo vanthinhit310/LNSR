@@ -85,6 +85,41 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-smd-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Socket working with Laravel Broadcast Event
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group mb-2">
+                                            <input
+                                                type="text"
+                                                v-model="title"
+                                                placeholder="Enter message title"
+                                                class="form-control w-100"
+                                            />
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <input
+                                                type="text"
+                                                v-model="body"
+                                                 placeholder="Enter message body"
+                                                class="form-control w-100"
+                                            />
+                                        </div>
+                                        <button
+                                            @click="onSendByLaravelBroadcast"
+                                            type="button"
+                                            class="btn btn-sm btn-success"
+                                        >
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,6 +145,8 @@ export default {
             input1: "",
             input2: "",
             input3: "",
+            title: "",
+            body: "",
         };
     },
     created() {
@@ -135,6 +172,9 @@ export default {
                 socket.emit("privateEventToServer", this.input3);
             }
         },
+        onSendByLaravelBroadcast(){
+            console.log(this.title, this.body);
+        }
     },
 };
 </script>
