@@ -40,7 +40,7 @@ class DemoMessage implements ShouldBroadcast
     }
 
     public function broadcastWith(){
-        return $this->data;
+        return $this->param;
     }
 
 }
