@@ -30,7 +30,10 @@ const onConnection = async (socket) => {
 
 
     const redisClient = await redis.createClient();
-    console.log(redisClient);
+    await redisClient.connect();
+    redisClient.subscribe("PUBLIC_BROADCAST", (data) => {
+        console.log(data);
+    })
 
     socket.on("disconnect", (reason) => {
         console.log(`disconnect ${socket.id} due to ${reason}`);
