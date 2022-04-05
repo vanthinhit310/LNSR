@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\DemoMessage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,8 @@ class SocketController extends Controller
 
     public function push()
     {
-        return response()->json($this->request->only(["title", "body"]));
+        $data = $this->request->only(["title", "body"]);
+        broadcast(new DemoMessage($data));
+        return response()->json($data);
     }
 }
