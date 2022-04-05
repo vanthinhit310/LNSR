@@ -13,7 +13,7 @@ const onConnection = async (socket) => {
     //lắng nghe event fireToServer
     socket.on("fireToServer", (message) => {
         // gửi cho tất cả client
-        io.sockets.emit("fireEventToClient", message);
+        io.emit("fireEventToClient", message);
     });
 
     //lắng nghe event broadcastToServer
@@ -23,9 +23,9 @@ const onConnection = async (socket) => {
     });
 
     //lắng nghe event privateEventToServer
-    socket.on("privateEventToServer", (message) => {
+    socket.on("privateEventToServer", (socketId, message) => {
         // chỉ gửi event cho client hiện tại
-        socket.emit("fireEventToClient", message);
+        io.to(socketId).emit("fireEventToClient", message);
     });
 
 

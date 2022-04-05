@@ -160,20 +160,24 @@ export default {
         onSendEventToAllClient() {
             if (this.input1) {
                 socket.emit("fireToServer", this.input1);
+                this.input1 = "";
             }
         },
         onSendEventToAllClientWithoutCurrent() {
             if (this.input2) {
                 socket.emit("broadcastToServer", this.input2);
+                this.input2 = "";
             }
         },
         onSendEventToCurrent() {
             if (this.input3) {
-                socket.emit("privateEventToServer", this.input3);
+                socket.emit("privateEventToServer", socket.id,this.input3);
+                this.input3 = "";
             }
         },
         onSendByLaravelBroadcast(){
             console.log(this.title, this.body);
+
         }
     },
 };
