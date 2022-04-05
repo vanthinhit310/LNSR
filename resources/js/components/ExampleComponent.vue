@@ -3,10 +3,35 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Example Component</div>
-
+                    <div class="card-header">
+                        Socket io with nodejs and vuejs
+                    </div>
                     <div class="card-body">
-                        I'm an example component.
+                        <div class="row">
+                            <div class="col-smd-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Socket with all client
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group mb-2">
+                                            <input
+                                                type="text"
+                                                v-model="input1"
+                                                class="form-control w-100"
+                                            />
+                                        </div>
+                                        <button
+                                            @click="onSendEventToAllClient"
+                                            type="button"
+                                            class="btn btn-sm btn-success"
+                                        >
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -15,9 +40,39 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
+import { io } from "socket.io-client";
+const socket = io("ws://127.0.0.1:3001");
+
+socket.on("connect", () => {
+    console.log(`${socket.id} connected`);
+});
+
+socket.on("disconnect", () => {
+    console.log("disconnected");
+});
+
+export default {
+    data() {
+        return {
+            input1: "",
+        };
+    },
+    created() {
+        socket.on("fireToAllClient", (data) => {
+            console.log("-----fireToAllClient ");
+            console.log(data);
+            console.log("-----fireToAllClient ");
+        });
+    },
+    mounted() {
+        console.log("Component mounted.");
+    },
+    methods: {
+        onSendEventToAllClient() {
+            if (this.input1) {
+                socket.emit("fireToServer", this.input1);
+            }
+        },
+    },
+};
 </script>
