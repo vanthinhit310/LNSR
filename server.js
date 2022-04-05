@@ -12,13 +12,19 @@ const onConnection = (socket) => {
     //lắng nghe event fireToServer
     socket.on("fireToServer", (message) => {
         // gửi cho tất cả client
-        io.sockets.emit("fireToAllClient", message);
+        io.sockets.emit("fireEventToClient", message);
     });
 
     //lắng nghe event broadcastToServer
     socket.on("broadcastToServer", (message) => {
         // gửi cho tất cả client ngoại trừ client hiện tại
-        socket.broadcast.emit("fireToAllClient", message);
+        socket.broadcast.emit("fireEventToClient", message);
+    });
+
+    //lắng nghe event privateEventToServer
+    socket.on("privateEventToServer", (message) => {
+        // chỉ gửi event cho client hiện tại
+        socket.emit("fireEventToClient", message);
     });
 
     socket.on("disconnect", (reason) => {

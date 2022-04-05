@@ -33,7 +33,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row mb-2">
                             <div class="col-smd-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -50,6 +50,32 @@
                                         </div>
                                         <button
                                             @click="onSendEventToAllClientWithoutCurrent"
+                                            type="button"
+                                            class="btn btn-sm btn-success"
+                                        >
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-smd-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Socket fire event to private (current) client
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group mb-2">
+                                            <input
+                                                type="text"
+                                                v-model="input3"
+                                                class="form-control w-100"
+                                            />
+                                        </div>
+                                        <button
+                                            @click="onSendEventToCurrent"
                                             type="button"
                                             class="btn btn-sm btn-success"
                                         >
@@ -87,10 +113,10 @@ export default {
         };
     },
     created() {
-        socket.on("fireToAllClient", (data) => {
-            console.log("-----fireToAllClient ");
+        socket.on("fireEventToClient", (data) => {
+            console.log("-----fireEventToClient ");
             console.log(data);
-            console.log("-----fireToAllClient ");
+            console.log("-----fireEventToClient ");
         });
     },
     methods: {
@@ -102,6 +128,11 @@ export default {
         onSendEventToAllClientWithoutCurrent() {
             if (this.input2) {
                 socket.emit("broadcastToServer", this.input2);
+            }
+        },
+        onSendEventToCurrent() {
+            if (this.input3) {
+                socket.emit("privateEventToServer", this.input3);
             }
         },
     },
